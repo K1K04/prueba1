@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Detalles del Equipo</h2>
+    <div class="team-details">
+        <img src="{{ team['crest'] }}" alt="{{ team['name'] }} crest" width="150">
+        <h3>{{ team['name'] }}</h3>
+        <p><strong>Nombre Corto:</strong> {{ team['shortName'] }}</p>
+        <p><strong>Dirección:</strong> {{ team['address'] }}</p>
+        <p><strong>Sitio Web:</strong> <a href="{{ team['website'] }}" target="_blank">{{ team['website'] }}</a></p>
+        <p><strong>Colores del Club:</strong> {{ team['clubColors'] }}</p>
+        <p><strong>Estadio:</strong> {{ team['venue'] }}</p>
+        <h4>Competencias Actuales</h4>
+        <ul>
+            {% for competition in team['runningCompetitions'] %}
+                <li>{{ competition['name'] }}</li>
+            {% endfor %}
+        </ul>
+        <h4>Plantilla</h4>
+        <ul>
+            {% for player in team['squad'] %}
+                <li>{{ player['name'] }} - {{ player['position'] }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

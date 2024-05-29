@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Lista de Equipos de la LIGA</h2>
+    {% if error_message %}
+        <p>{{ error_message }}</p>
+    {% else %}
+        <div class="team-cards">
+            {% for team in teams %}
+                {% set football_data_team_id = teams_data_football_data.get(team['shortName']) %}
+                {% if football_data_team_id %}
+                    <div class="team-card">
+                        <a href="{{ url_for('team_details', team_id=football_data_team_id) }}">
+                            <img src="{{ team['shield'] }}" alt="{{ team['nameShow'] }} shield" width="80" height="80">
+                        </a>
+                        <div>
+                            <h3><a href="{{ url_for('team_details', team_id=football_data_team_id) }}">{{ team['nameShow'] }}</a></h3>
+                            <p>{{ team['fullName'] }}</p>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="team-card">
+                        <img src="{{ team['shield'] }}" alt="{{ team['nameShow'] }} shield" width="80" height="80">
+                        <div>
+                            <h3>{{ team['nameShow'] }}</h3>
+                            <p>{{ team['fullName'] }}</p>
+                            <p>Datos no disponibles</p>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
